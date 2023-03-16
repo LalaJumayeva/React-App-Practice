@@ -1,7 +1,11 @@
 import React from "react";
 
 const getPoster = (posterPath) => {
-  return `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${posterPath}`;
+  if (posterPath) {
+    return `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${posterPath}`;
+  } else {
+    return "https://via.placeholder.com/400";
+  }
 };
 
 const MovieCard = ({
@@ -14,14 +18,7 @@ const MovieCard = ({
       </div>
 
       <div>
-        <img
-          src={
-            getPoster(poster_path) !== "N/A"
-              ? getPoster(poster_path)
-              : "https://via.placeholder.com/400"
-          }
-          alt="poster"
-        />
+        <img src={getPoster(poster_path)} alt="poster" />
       </div>
       <div>
         <span>{original_title}</span>
