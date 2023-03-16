@@ -21,39 +21,40 @@ import tmdb from "./tmdb";
 //   vote_count: 983
 // };
 
-const API_search = "https://api.themoviedb.org/3/movie/search/movie?api_key=7736ed9f5427a468429b0f9cc1d80060&language=en-US&page=1";
-
-const URL =
-  "https://api.themoviedb.org/3/movie/popular?api_key=7736ed9f5427a468429b0f9cc1d80060&language=en-US&page=1";
+const API_search =
+  "https://api.themoviedb.org/3/search/movie?api_key=7736ed9f5427a468429b0f9cc1d80060&query=";
 
 function App() {
   const [movies, setMovie] = useState([]);
-  const [search, setSeatch] = useState("");
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    const fetchMovies = async() =>{
-      const {data} = await tmdb.get("movie/popular")
-      setMovie(data.results)
-    }
-    fetchMovies()
+    const fetchMovies = async () => {
+      const { data } = await tmdb.get("movie/popular");
+      setMovie(data.results);
+    };
+    fetchMovies();
   }, []);
 
-  const handleSearch= (e) => {
-    e.preventDefault();
+  const handleSearch = (e) => {
+    e.preventDefault()
+
     fetch(API_search + search)
     .then(res => res.json())
     .then(data => setMovie(data.results))
   }
 
+
   return (
     <div className="app">
       <h1>MovieScreen</h1>
+      <h2>Millions of movies to discover. Explore now!</h2>
 
       <div className="search">
         <input
           placeholder="Search Movie"
           value={search}
-          onChange={(e) => setSeatch(e.target.value)}
+          onChange={(e) => setSearch(e.target.value)}
         />
         <img src={SearchIcon} alt="search" onClick={handleSearch} />
       </div>
